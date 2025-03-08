@@ -1,3 +1,8 @@
+import { products } from '../data/products.js';
+import { cart, addToCart } from '../data/cart.js';
+
+updateCartQuantity();
+
 let productsHTML = '';
 
 products.forEach((product) => {
@@ -56,44 +61,35 @@ document.querySelector('.js-products-grid').innerHTML = productsHTML;
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
   button.addEventListener('click', () => {
     const productId = button.dataset.productId;
-
-    let matchingItem;
-    let productQuantity = Number(document.querySelector(`.js-product-quantity-${productId}`).value);
     let timeoutId;
 
-    cart.forEach((item) => {
-      if(item.productId === productId){
-        matchingItem = item;
-      }
-    });
 
-    if(matchingItem){
-      matchingItem.quantity += productQuantity;
-    }else{
-      cart.push({
-        productId: productId,
-        quantity: productQuantity
-      });     
-    }
-
-    let cartQuantity = 0;
-
-    cart.forEach(item => {
-      cartQuantity += item.quantity;
-    });
-
-    document.querySelector('.js-cart-quantity').textContent = `${cartQuantity}`;
+    addToCart(productId);
+    updateCartQuantity();
 
     document.querySelector(`.js-added-to-cart-${productId}`).innerHTML = 
     ` <img src="images/icons/checkmark.png">
       Added`;
-
+  
     document.querySelector(`.js-added-to-cart-${productId}`).classList.add('item-added') ;
-
+  
     clearTimeout(timeoutId);
-
+  
     timeoutId = setTimeout(() => {
       document.querySelector(`.js-added-to-cart-${productId}`).classList.remove('item-added');
     }, 1000);
+
   });
 });
+
+function updateCartQuantity() {
+
+  let cartQuantity = 0;
+
+  cart.forEach(item => {
+    cartQuantity += item.quantity;
+  });
+
+  document.querySelector('.js-cart-quantity').textContent = `${cartQuantity}`;
+}
+
