@@ -1,6 +1,7 @@
 import { cart, removeFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 
+updateCheckoutHeader();
 let cartSummaryHTML = '';
 
 cart.forEach(cartItem => {
@@ -102,5 +103,17 @@ document.querySelectorAll('.js-delete-link').forEach(deleteLink => {
     const productId = deleteLink.dataset.productId;
     removeFromCart(productId);
     document.querySelector(`.js-cart-item-container-${productId}`).remove();
+    updateCheckoutHeader();
   });
 });
+
+function updateCheckoutHeader() {
+
+  let cartQuantity = 0;
+
+  cart.forEach(item => {
+    cartQuantity += item.quantity;
+  });
+
+  document.querySelector('.js-return-to-home-link').textContent = `${cartQuantity} items`;
+}
