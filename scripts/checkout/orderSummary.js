@@ -76,7 +76,8 @@ export function renderOrderSummary(){
       console.log('deleted');
       const productId = deleteLink.dataset.productId;
       removeFromCart(productId);
-      document.querySelector(`.js-cart-item-container-${productId}`).remove();
+      //document.querySelector(`.js-cart-item-container-${productId}`).remove();
+      renderOrderSummary();
       updateCheckoutHeader();
       renderPaymentSummary();
     });
