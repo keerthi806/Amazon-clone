@@ -19,7 +19,7 @@ export function renderOrderSummary(){
 
     cartSummaryHTML +=
     `
-    <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
+    <div class="cart-item-container js-cart-item-container-${matchingProduct.id} js-cart-item-container">
       <div class="delivery-date">
         Delivery date: ${dateString}
       </div>
@@ -35,7 +35,7 @@ export function renderOrderSummary(){
           <div class="product-price">
             $${(matchingProduct.priceCents / 100).toFixed(2)}
           </div>
-          <div class="product-quantity">
+          <div class="product-quantity js-product-quantity-${matchingProduct.id}">
             <span>
               Quantity: <span class="quantity-label js-quantity-label-${matchingProduct.id}">${cartItem.quantity}</span>
             </span>
@@ -48,7 +48,7 @@ export function renderOrderSummary(){
             data-product-id="${matchingProduct.id}">
               Save
             </span>
-            <span class="delete-quantity-link link-primary js-delete-link"
+            <span class="delete-quantity-link link-primary js-delete-link js-delete-link-${matchingProduct.id}"
             data-product-id="${matchingProduct.id}">
               Delete
             </span>
@@ -126,7 +126,12 @@ function updateCheckoutHeader() {
     cartQuantity += item.quantity;
   });
 
-  document.querySelector('.js-return-to-home-link').textContent = `${cartQuantity} items`;
+  //document.querySelector('.js-return-to-home-link').textContent = `${cartQuantity} items`;
+  const checkoutHeaderElement = document.querySelector('.js-return-to-home-link');
+
+  if (checkoutHeaderElement) {
+    checkoutHeaderElement.textContent = `${cartQuantity} items`;
+  }
 }
 
 function deliveryOptionsHTML(matchingProduct, cartItem) {

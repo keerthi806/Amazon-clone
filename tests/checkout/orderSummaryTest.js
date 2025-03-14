@@ -7,6 +7,7 @@ describe('test suite: renderOrderSummary()', () => {
   const productId2 = '15b6fc6f-327a-4ec4-896f-486349e85a3d';
 
   beforeEach(() => {
+
     spyOn(localStorage, 'setItem');
 
     document.querySelector('.js-test-container').innerHTML = `
@@ -15,6 +16,7 @@ describe('test suite: renderOrderSummary()', () => {
     `;
 
     spyOn(localStorage, 'getItem').and.callFake(() => {
+      localStorage.clear();
       return JSON.stringify([
         {
           productId: productId1,
@@ -36,6 +38,7 @@ describe('test suite: renderOrderSummary()', () => {
   });
 
   it('displays the cart on page', () => {
+    console.log(cart);
     expect(document.querySelectorAll('.js-cart-item-container').length).toEqual(2);
     expect(document.querySelector(`.js-product-quantity-${productId1}`).textContent).toContain('Quantity: 2');
     expect(document.querySelector(`.js-product-quantity-${productId2}`).textContent).toContain('Quantity: 1');
