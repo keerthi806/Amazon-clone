@@ -71,6 +71,8 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
   cart.forEach((cartItem) => {
     if (cartItem.productId === productId) {
       matchingItem = cartItem;
+    } else {
+      return;
     }
   });
 

@@ -29,7 +29,7 @@ export function renderOrderSummary(){
           src="${matchingProduct.image}">
 
         <div class="cart-item-details">
-          <div class="product-name">
+          <div class="product-name js-product-name-${matchingProduct.id}">
             ${matchingProduct.name}
           </div>
           <div class="product-price">
@@ -70,7 +70,7 @@ export function renderOrderSummary(){
 
   document.querySelectorAll('.js-delete-link').forEach(deleteLink => {
     deleteLink.addEventListener('click', () => {
-      console.log('deleted');
+      //console.log('deleted');
       const productId = deleteLink.dataset.productId;
       removeFromCart(productId);
       //document.querySelector(`.js-cart-item-container-${productId}`).remove();
@@ -157,7 +157,7 @@ function deliveryOptionsHTML(matchingProduct, cartItem) {
         <div class="delivery-option-date">
           ${dateString}
         </div>
-        <div class="delivery-option-price">
+        <div class="delivery-option-price js-delivery-option-price">
           $${priceString} - Shipping
         </div>
       </div>
