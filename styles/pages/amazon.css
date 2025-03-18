@@ -158,3 +158,18 @@
   padding: 8px;
   border-radius: 50px;
 }
+
+.extra-info-links{
+  text-decoration: none;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 0.9em;
+}
+
+a.extra-info-links {
+  color: hsl(213, 81%, 67%) !important;
+}
+
+a.extra-info-links:visited {
+  color: hsl(213, 81%, 67%) !important;
+}
