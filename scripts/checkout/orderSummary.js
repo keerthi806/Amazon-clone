@@ -93,8 +93,15 @@ export function renderOrderSummary(){
       const productId = saveQuantityLink.dataset.productId;
 
       const newQuantity = Number(document.querySelector(`.js-quantity-input-${productId}`).value);
+      console.log(newQuantity);
 
-      if(newQuantity <= 0 || newQuantity >= 1000){
+      if(newQuantity < 0 || newQuantity >= 1000){
+        return;
+      } 
+      
+      if(newQuantity === 0) {
+        //console.log(document.querySelector(`.js-delete-link-${productId}`));
+        document.querySelector(`.js-delete-link-${productId}`).click();
         return;
       }
 
