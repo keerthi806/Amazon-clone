@@ -1,4 +1,5 @@
 import { cart, loadFromStorage, updateDeliveryOption } from "../../data/cart.js";
+import { loadProducts } from "../../data/products.js";
 import { renderOrderSummary, deliveryOptionsHTML } from "../../scripts/checkout/orderSummary.js";
 import { renderPaymentSummary } from "../../scripts/checkout/paymentSummary.js";
 
@@ -10,6 +11,10 @@ describe('test suite: renderOrderSummary()', () => {
   const product1Name = 'Black and Gray Athletic Cotton Socks - 6 Pairs';
   const product2Name = 'Intermediate Size Basketball';
 
+  beforeAll((done) => {
+    loadProducts().then(()=> done());
+  });
+  
   beforeEach(() => {
 
     spyOn(localStorage, 'setItem');
@@ -69,6 +74,11 @@ describe('test suite: renderOrderSummary()', () => {
 });
 
 describe('test suite: renderPaymentSummary()', () => {
+  
+  beforeAll(async () => {
+    await loadProducts();
+  });
+
   const product1 = {
     productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     quantity: 2,

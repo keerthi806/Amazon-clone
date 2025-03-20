@@ -1,7 +1,12 @@
 import { cart, addToCart, loadFromStorage, removeFromCart, updateDeliveryOption } from "../../data/cart.js";
+import { loadProducts } from "../../data/products.js";
 
 describe('test suite: addToCart()', () => {
 
+  beforeAll(async () => {
+    await loadProducts();
+  });
+  
   beforeEach(() => {
     spyOn(localStorage, 'setItem');
   });
