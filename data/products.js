@@ -80,6 +80,27 @@ export class Appliance extends Product{
   }
 }
 
+export let products = [];
+
+export async function loadProducts() {
+  const response = await fetch('https://supersimplebackend.dev/products');
+  const productData = await response.json();
+
+  products = productData.map((productDetails) => {
+    if(productDetails.type === 'clothing') {
+      return new Clothing(productDetails);
+    } else if(productDetails.type === 'appliance') {
+      return new Appliance(productDetails);
+    } else {
+      return new Product(productDetails);
+    }
+  });
+
+  console.log('Products loaded');
+  return products;
+}
+
+/*
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -763,3 +784,4 @@ export const products = [
     return new Product(productDetails);
   }
 });
+*/
