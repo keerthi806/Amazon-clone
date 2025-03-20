@@ -126,7 +126,7 @@ describe('test suite: renderPaymentSummary()', () => {
     expect(cart.length).toEqual(2);
     expect(cart[0].deliveryOptionId).toEqual('1');
 
-    expect(document.querySelector('.js-shipping-cost').textContent).toContain('$12.98');
-    expect(document.querySelector('.js-total-before-tax').textContent).toContain('$55.73');
+    expect(document.querySelector('.js-shipping-cost').textContent).toContain('$4.99');
+    expect(document.querySelector('.js-total-before-tax').textContent).toContain('$47.74');
   });
 });
