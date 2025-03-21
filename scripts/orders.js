@@ -11,8 +11,10 @@ loadProducts().then(() => {
 orders.forEach(order => console.log(order));
 
 function renderOrder() {
-  document.querySelector('.js-order-cart-quantity').textContent = getCartQuantity();
-  
+  const cartQuantityContainer = document.querySelector('.js-order-cart-quantity');
+  if(cartQuantityContainer){
+    cartQuantityContainer.textContent = getCartQuantity();
+  }
   let orderHTML = '';
   orders.forEach((order) => {
     orderHTML += `
@@ -47,13 +49,19 @@ function renderOrder() {
   // console.log(cart);  
   // console.log(getCartQuantity());
 
-  document.querySelector(".js-order-grid").innerHTML = orderHTML;
+  const ordersContainer = document.querySelector(".js-order-grid");
 
+  if(ordersContainer){
+    ordersContainer.innerHTML = orderHTML;
+  }
+  
   document.querySelectorAll('.js-buy-again-button').forEach((button => {
     button.addEventListener('click', () => {
       const productId = button.dataset.productId;
       addToCart(productId);   
-      document.querySelector('.js-order-cart-quantity').textContent = getCartQuantity();
+      if(cartQuantityContainer){
+        cartQuantityContainer.textContent = getCartQuantity();
+      }
     });
   }));
 }
@@ -94,7 +102,7 @@ function renderOrderProducts(order) {
       </div>
 
       <div class="product-actions">
-        <a href="tracking.html">
+        <a href="tracking.html?orderId=${order.id}&productId=${orderedProduct.productId}">
           <button class="track-package-button button-secondary">
             Track package
           </button>
@@ -105,7 +113,7 @@ function renderOrderProducts(order) {
   return productsHTML;
 }
 
-function formatDate(isoString){
+export function formatDate(isoString){
   return dayjs(isoString).format("MMMM DD");
 }
 
