@@ -9,9 +9,21 @@ loadProducts().then(products => {
 
 function renderProductsPage(){
   updateCartQuantity();
+
+  const url = new URL(window.location.href);
+  const search = url.searchParams.get('search');
+
+  let filteredProducts = products;
+
+  if(search) {
+    filteredProducts = products.filter((product) => {
+      return product.name.includes(search);
+    });
+  }
+
   let productsHTML = '';
 
-  products.forEach((product) => {
+  filteredProducts.forEach((product) => {
     productsHTML += 
       `<div class="product-container">
         <div class="product-image-container">
@@ -88,6 +100,11 @@ function renderProductsPage(){
       }, 1000);
 
     });
+  });
+
+  document.querySelector('.js-search-button').addEventListener('click', () => {
+    const search = document.querySelector('.js-search-input').value;
+    window.location.href = `amazon.html?search=${search}`;
   });
 
   function updateCartQuantity() {
