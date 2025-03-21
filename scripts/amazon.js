@@ -17,7 +17,17 @@ function renderProductsPage(){
 
   if(search) {
     filteredProducts = products.filter((product) => {
-      return product.name.includes(search);
+      //return product.name.toLowerCase().includes(search.toLowerCase());
+
+      let matchingKeyword = false;
+
+      product.keywords.forEach(keyword => {
+        if(keyword.toLowerCase().includes(search.toLowerCase())){
+          matchingKeyword = true;
+        }
+      });
+
+      return matchingKeyword || product.name.toLowerCase().includes(search.toLowerCase());
     });
   }
 
@@ -103,7 +113,7 @@ function renderProductsPage(){
   });
 
   document.querySelector('.js-search-button').addEventListener('click', () => {
-    const search = document.querySelector('.js-search-input').value;
+    const search = document.querySelector('.js-search-input').value.toLowerCase();
     window.location.href = `amazon.html?search=${search}`;
   });
 
