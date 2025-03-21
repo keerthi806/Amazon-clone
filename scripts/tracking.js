@@ -33,10 +33,6 @@ function renderTracking() {
     }
   });
 
-  // console.log(matchingOrder);
-  // console.log(matchingProduct);
-  // console.log(trackingProduct);
-
   let trackingHTML = `
   <div class="order-tracking js-order-tracking">
       <a class="back-to-orders-link link-primary" href="orders.html">
@@ -68,7 +64,6 @@ function renderTracking() {
 
   document.querySelector('.js-cart-quantity').textContent = `${getCartQuantity()}`
 
-  //console.log(trackingHTML);
   document.querySelector('.js-main').innerHTML = trackingHTML;
 
   const progress = calculateProgress(matchingOrder, trackingProduct);
@@ -80,18 +75,12 @@ function renderTracking() {
 }
 
 function calculateProgress(order, trackingProduct) {
-  let currentTime = dayjs().add(24, 'hours');
+  const currentTime = dayjs();
   const orderTime = dayjs(order.orderTime);
   const deliveryTime = dayjs(trackingProduct.estimatedDeliveryTime);
 
   const elapsedTime = currentTime.diff(orderTime, 'minute');
   const totalTime = deliveryTime.diff(orderTime, 'minute');
-
-  // console.log(currentTime);
-  // console.log(orderTime);
-  // console.log(deliveryTime);
-  // console.log(elapsedTime);
-  // console.log(totalTime);
 
   const progress = Math.round((elapsedTime / totalTime) * 100);
   
