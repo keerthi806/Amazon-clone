@@ -1,4 +1,4 @@
-import { cart, getCartQuantity } from "../../data/cart.js";
+import { cart, getCartQuantity, resetCart } from "../../data/cart.js";
 import { getProduct } from "../../data/products.js";
 import { getDeliveryOptions } from "../../data/deliveryOptions.js";
 import { formatCurrency } from "../utils/price.js";
@@ -72,6 +72,7 @@ export function renderPaymentSummary(){
       });
       const order = await response.json();
       addOrder(order);
+      resetCart();
     }
     catch(error){
       console.log(error);

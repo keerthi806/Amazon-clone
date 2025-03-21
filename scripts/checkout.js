@@ -7,10 +7,3 @@ loadProducts().then((products) => {
   renderOrderSummary();
   renderPaymentSummary();
 });
-
-
-
-/**
- * FEATURES TO ADD:
- * update button quantity = 0 => remove item from cart
- */

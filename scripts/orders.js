@@ -2,6 +2,7 @@ import { orders } from '../data/orders.js';
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { formatCurrency } from './utils/price.js';
 import { products, loadProducts } from '../data/products.js';
+import { addToCart, getCartQuantity } from '../data/cart.js';
 
 loadProducts().then(() => {
   renderOrder();
@@ -10,6 +11,8 @@ loadProducts().then(() => {
 orders.forEach(order => console.log(order));
 
 function renderOrder() {
+  document.querySelector('.js-order-cart-quantity').textContent = getCartQuantity();
+  
   let orderHTML = '';
   orders.forEach((order) => {
     orderHTML += `
@@ -41,7 +44,18 @@ function renderOrder() {
   });
 
   //console.log(orderHTML);
+  // console.log(cart);  
+  // console.log(getCartQuantity());
+
   document.querySelector(".js-order-grid").innerHTML = orderHTML;
+
+  document.querySelectorAll('.js-buy-again-button').forEach((button => {
+    button.addEventListener('click', () => {
+      const productId = button.dataset.productId;
+      addToCart(productId);   
+      document.querySelector('.js-order-cart-quantity').textContent = getCartQuantity();
+    });
+  }));
 }
 
 function renderOrderProducts(order) {
@@ -73,9 +87,9 @@ function renderOrderProducts(order) {
         <div class="product-quantity">
           Quantity: ${orderedProduct.quantity}
         </div>
-        <button class="buy-again-button button-primary">
+        <button class="buy-again-button button-primary js-buy-again-button" data-product-id="${orderedProduct.productId}">
           <img class="buy-again-icon" src="images/icons/buy-again.png">
-          <span class="buy-again-message">Buy it again</span>
+          <span class="buy-again-message ">Buy it again</span>
         </button>
       </div>
 
@@ -88,7 +102,6 @@ function renderOrderProducts(order) {
       </div>
     `;
   });
-
   return productsHTML;
 }
 
@@ -97,3 +110,4 @@ function formatDate(isoString){
 }
 
 //console.log(formatDate(orders[0].orderTime));
+//localStorage.removeItem('orders');
